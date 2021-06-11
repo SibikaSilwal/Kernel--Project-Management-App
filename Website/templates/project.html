@@ -1,0 +1,83 @@
+{% extends "base.html" %} 
+
+{% block title %} {{current_Project.projectName}} {% endblock %}
+
+{%block content %}
+<div class="box">
+    <h3 align="center">{{current_Project.projectName}}</h3>
+<h5 align="center">{{current_Project.projectDescription}}</h5>
+
+    <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
+            {% for employee in project_Employees %}
+                <div class=" p-2">
+                    <p style="margin: 0;font-weight: 500;"class="rounded-circle bg-color-{{employee.employeeId % 5}} text-white p-2 " data-toggle="tooltip" data-placement="top" title="{{ employee.employeeName +', ' + employee.employeeDepartment}}">                                   
+                        {{clever_function(employee.employeeName)}}                        
+                    </p>      
+                </div>
+            {% endfor %}
+            <div tabindex="0"
+            class="btn btn-light p-2" 
+            role="button" 
+            data-html="true" 
+            data-toggle="popover"   
+            title="<b>Add a team member.</b>" 
+            data-content='
+                <form action="/add-member" method="POST">
+                    <input name="newMember" id="newMember" class="form-control" placeholder="Member Name">
+                    <input type="hidden" name="projectid" id="projectid" value = "{{current_Project.id}}">
+                    <br />
+                    <div align="center">
+                    <button type="submit" class="btn btn-light">Add Member</button>
+                    </div>
+                </form>'>
+                Add Members
+            </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-around align-items-start flex-wrap project-3-cards">
+        
+        <div class="card p-2 task-card" onClick="OpenTodo( {{ current_Project.id }} )">
+                <div class="card-body">
+                    <h3 align="center" class="card-title">To do</h3>
+                    <p align="center" class="card-text">Team's tasks for {{current_Project.projectName}}.</p>
+                    <div class="project-tasks-list">
+                        {%for tasklist in current_Project.projectTaskLists%}
+                        <h6>{{tasklist.listName}}</h6>
+                        <ul>
+                            {%for task in tasklist.tasksInList%}
+                            <li>{{task.taskName}}</li>
+                            {%endfor%}
+                        </ul>
+                        {%endfor%}
+                    </div>
+                </div>      
+        </div>
+
+        <div class="card p-2 file-card" onClick="OpenFile( {{ current_Project.id }} )">
+            <div class="card-body">
+                <h3 align="center" class="card-title">Files</h3>
+                <p align="center" class="card-text">Files for {{current_Project.projectName}}.</p>
+                <div>
+                    <img src="/static/word-icon.png" width=200>
+                </div>
+            </div>      
+        </div>
+
+        <div class="card p-2 file-card" onClick="OpenDiscovery( {{ current_Project.id }} )">
+            <div class="card-body">
+                <h3 align="center" class="card-title">Discovery</h3>
+                <p align="center" class="card-text">Discovery notes for {{current_Project.projectName}}.</p>
+                <div class="project-discovery-list">
+                    {% for discoveryList in current_Project.projectDiscovery %}
+                    <h6 class="dicovery-title">{{discoveryList.discoveryName}}</h6>
+                    <div class="discovery-excerpt">{{discoveryList.discoveryNote|safe}}</div>
+                    
+                    {%endfor%}
+                </div>
+            </div>      
+        </div>
+        
+    </div>
+</div>
+
+{%endblock%}

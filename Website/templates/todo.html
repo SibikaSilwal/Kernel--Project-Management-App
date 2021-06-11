@@ -1,0 +1,83 @@
+{% extends "base.html" %} 
+{% block title %} To dos {% endblock %}
+
+{%block content %}
+
+<div class="box">
+    <div class="d-flex flex-row justify-content-around align-items-center flex-wrap to-do-header">
+        <div>
+            <h6>Good Luck !</h6>
+        </div>
+        <div>
+            <h3>To-dos</h3>
+        </div>
+        
+        <div tabindex="0"
+            class="btn btn-light" 
+            role="button" 
+            data-html="true" 
+            data-toggle="popover"   
+            title="<b>Create a new list.</b>" 
+            data-content='
+                <form action="/create-list" method="POST">
+                    <input name="newList" id="newList" class="form-control" placeholder="List title">
+                    <input type="hidden" name="projectid" id="projectid" value = "{{current_Project.id}}">
+                    <br />
+                    <div align="center">
+                        <button type="submit" class="btn btn-light">Create list.</button>
+                    </div>
+                </form>'>
+                        
+                Create list.
+        </div>
+    </div>
+    
+    {%for tasklist in taskLists%}
+        <div class="task-list-name">
+            <h4 class ="task-list-header">{{tasklist.listName}}</h4>
+            <ul class="list-group list-group-flush">
+            {%for task in tasklist.tasksInList%}
+                <div class="checkbox">
+                    {%if task.completed%}
+                    <input type="checkbox" checked name="checkbox-completed" id="checkbox-completed-{{task.taskId}}" class = "task-checkbox" onclick="MarkTaskComplete('checkbox-completed-{{task.taskId}}','{{task.taskId}}')">
+                    {%else%}
+                    <input type="checkbox" name="checkbox-completed" id="checkbox-completed-{{task.taskId}}" class = "task-checkbox" onclick="MarkTaskComplete('checkbox-completed-{{task.taskId}}','{{task.taskId}}')">
+                    {%endif%}
+                    <a href = "/todos/{{current_Project.id}}/task/{{task.taskId}}">
+                        <li class="task-list">{{task.taskName}}</li>
+                    </a>            
+                </div>                   
+            {%endfor%}
+            </ul>
+            
+            <div tabindex="0"
+            class="btn btn-light"
+            style="font-size: 12px;" 
+            role="button" 
+            data-html="true" 
+            data-toggle="popover"   
+            title="<b>Add a new Task.</b>" 
+            data-content='
+                <form action="/create-task" method="POST">
+                    <input name="newTask" id="newTask" class="form-control" placeholder="Describe this task">
+                    <label for="assignedto"> Assigned to: </label>
+                    <input type = "email" name = "assignedto" id ="assignedto" class="form-control" placeholder="Assign task to...">
+                    <label for="duedate"> Due on: </label>
+                    <input type = "date" name = "duedate" id="duedate" class="form-control" placeholder="Select a date...">
+                    <label for="note"> Notes: </label>
+                    <textarea name = "note" id ="note" class="form-control" rows="5" cols="30" placeholder="Notes for the task..."></textarea>
+                    <input type="hidden" name="projectid" id="projectid" value = "{{current_Project.id}}">
+                    <input type="hidden" name="taskListId" id="taskListId" value = "{{tasklist.listId}}">
+                    <br />
+                    <div align="center">
+                        <button type="submit" class="btn btn-light">Create Task.</button>
+                    </div>
+                </form>'>
+                Add a to-do.
+            </div>
+        </div>
+    {%endfor%}
+</div>
+
+
+{%endblock%}

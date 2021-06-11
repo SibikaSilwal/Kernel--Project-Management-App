@@ -1,0 +1,17 @@
+{% extends "base.html" %} 
+{% block title %} My Tasks {% endblock %}
+
+{%block content %}
+
+<div class="box">
+    <h3 align="center" class="to-do-header"> Tasks on your plate</h3>
+    <div>
+        {%for task in employee.employee_Tasks%}
+        <a href = "/todos/{{task.projectId}}/task/{{task.taskId}}">
+            <h6 class="task-list">{{task.taskName}}</h6>
+        </a>
+        {%endfor%}
+    </div>
+    
+</div>
+{%endblock%}

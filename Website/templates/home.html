@@ -1,0 +1,91 @@
+{% extends "base.html" %} 
+{% block title %} Home {% endblock %}
+{%block content %}
+
+<div class = "home-box">
+    <h3 align='center' class="home-welcome-msg">Welcome to Kernel, {{user.firstName}}!</h3>
+    <h6 align='center' class="welcome-msg-sub"> -Your Project Management Companion</h6>
+    
+    <div tabindex="0"
+        class="btn btn-light add-project-btn" 
+        role="button" 
+        data-html="true" 
+        data-toggle="popover"   
+        title="<b>Create a new list.</b>" 
+        data-content='
+            <form method="POST">
+                <input name="newProject" id="newProject" class="form-control" placeholder="Project Name">
+                <br />
+                <input name="description" id="description" class="form-control" placeholder="Projects Short Description">
+                <br />
+                <div align="center">
+                <button type="submit" class="btn btn-light">Add New Project</button>
+                </div>
+            </form>'>
+            Add New Project
+    </div>
+    <hr class="break-inline">
+    
+    <br>
+    
+    
+    <p align="center">Your Current Projects</p>
+    <div class="d-flex flex-row justify-content-between align-items-start flex-wrap">
+            {% for project in user_projects %}
+            <div class="card p-2 project-card" onClick="OpenProject( {{ project.id }} )">
+                    <div class="card-body">
+                        <p class="card-title project-title">{{ project.projectName }}</p>
+                        <p class="card-text project-description">{{ project.projectDescription }} </p>
+                        <div class="employee-avatar">
+                            {%for employee in project.projectEmployees%}
+                            <span class="rounded-circle bg-color-{{employee.employeeId % 5}} text-white home-initials" data-toggle="tooltip" data-placement="top" title="{{ employee.employeeName +', ' + employee.employeeDepartment}}">                                   
+                                {{clever_function(employee.employeeName)}}                        
+                            </span>
+                            {%endfor%}
+                        </div>
+                        
+                    </div>      
+            </div>
+            {% endfor %}
+    </div>
+</div>
+    
+{%endblock%}
+
+<!--
+    Projects Table
+        -project id (pk)
+        -project name (unique)
+
+    Tasks Table
+        -task id (pk)
+        -project id (which projects task is it)
+        -By-Employee id
+        -assigned on date
+        -due on date
+        -notes
+    
+    Tasks comments
+        -comment id
+        -task id
+        -comment
+        -comment by
+
+    Employee Table
+        -employee id
+        -employee name
+        -employee department
+
+    Project and Employee (many-many relationship)
+        -project id (pk)
+        -employee id (pk)
+    
+    Task and Employee (many-many relationship)
+        -task id (pk)
+        -assigned to (pk)
+
+    Projects Timeline Table
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+            <span aria-hidden="true">&times;</span>
+          </button>
+-->

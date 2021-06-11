@@ -1,0 +1,82 @@
+{% extends "base.html" %} 
+{% block title %} {{current_task.taskName}} {% endblock %}
+
+{%block content %}
+<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+<div class ="box">
+    <div class="heading">
+        <div class="checkbox task-header">
+            <label class="checkbox-label">
+                {%if current_task.completed %}
+                <input type="checkbox" checked name="checkboxTask-completed" id="checkboxTask-completed-{{current_task.taskId}}" class = "task-checkbox checkbox-lg" onclick="MarkTaskComplete('checkboxTask-completed-{{current_task.taskId}}','{{current_task.taskId}}')">
+                {%else%}
+                <input type="checkbox" name="checkboxTask-completed" id="checkboxTask-completed-{{current_task.taskId}}" class = "task-checkbox checkbox-lg" onclick="MarkTaskComplete('checkboxTask-completed-{{current_task.taskId}}','{{current_task.taskId}}')">
+                {% endif %}
+            </label>
+            <h3 class="task-header-name">{{current_task.taskName}}</h3>
+            <p>Added by {{current_task.assignedByEmployee.employeeName}} on {{current_task.assignedOnDate}}</p>
+        </div>  
+    </div>
+
+<div class = "task-box">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <span> <b>Assigned To: </b> 
+                {%for employee in current_task.taskEmployees%}
+                {{employee.employeeName}}
+            </span>
+                {%endfor%}
+        </li>
+        <li class="list-group-item">
+            <span> <b>Due On: </b> {{current_task.dueOnDate}}</span>
+        </li>
+        <li class="list-group-item">
+            <span> 
+                <b>Notes: </b>
+                {{current_task.note|newline_to_br }}                
+            </span>
+        </li>
+    </ul>
+    <br>
+
+</div>
+<div class = "task-comments">
+    <h3>Comments</h3>
+    
+    {% if current_task.comments is not none%}
+        {%for comment in current_task.comments%}
+        <div class = "single-comment-wrapper">
+            <p class="rounded-circle bg-color-{{comment.empComments.employeeId % 5}} text-white p-2 initials" data-toggle="tooltip" data-placement="top" title="{{ comment.empComments.employeeName +', ' + comment.empComments.employeeDepartment}}">
+                {{clever_function(comment.empComments.employeeName)}}
+            </p>
+            <p class = "comment-content">
+                {{comment.comment|safe}}
+            </p>
+        </div>       
+        {%endfor%}
+    {%endif%}
+    <form method="POST" action="/add-comment">
+        <input type="hidden" id="task_Id" name="task_Id" value="{{current_task.taskId}}">
+        <input type="hidden" id="projectid" name="projectid" value={{current_Project.id}}>
+        <label for="comment">Add your comment.</label>
+        <!--<textarea name="comment" id="comment" placeholder="Enter your comment">
+            &lt;p&gt; &lt;/p&gt;
+        </textarea> -->
+        {{ ckeditor.create() }}
+        <br>
+        <button type="submit" class="btn btn-light">Add Comment</button>
+    </form>
+    
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#ckeditor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+
+</div>
+</div>
+
+
+{%endblock%}

@@ -1,0 +1,46 @@
+{% extends "base.html" %} 
+{% block title %} Project Files {% endblock %}
+
+{%block content %}
+
+<div class ="box">
+    <h2 align="center" class="to-do-header">Files for {{current_Project.projectName}}</h2>
+    <div> 
+        <div class="d-flex flex-row justify-content-around align-items-start flex-wrap">
+            {%for file in projectFiles%}
+            <div class="card p-2" style="width: 18rem;">
+                {%if file.mimetype=="application/pdf" %}
+                    <iframe src="data:application/pdf;base64,{{ Convert_blob_to_base64(file.file) }}" width=100% height=300 class="card-img-top"></iframe>
+                    <div class="card-body">
+                        <p class="card-text">{{file.fileName}}</p>
+                    </div>
+                    
+                {%elif file.mimetype=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"%}
+                    <img src="/static/word-icon.png" class="card-img-top">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <a href="data:;base64,{{ Convert_blob_to_base64(file.file) }}" download="file.docx" target="blank">Download</a>
+                            {{file.fileName}}
+                        </p>
+                    </div>
+                {%else%}
+                    <img src="data:;base64,{{ Convert_blob_to_base64(file.file) }}" class="card-img-top">
+                    <div class="card-body">
+                        <p class="card-text">{{file.fileName}}</p>
+                    </div>
+                {%endif%}
+            </div>
+            {%endfor%}       
+        </div>
+        <hr>
+        <div class="mx-auto" style="width: 400px;">
+            <form method="POST" action="/uploadfile" enctype="multipart/form-data" class="form-inline">
+                <input type="file" name="projectFile" >
+                <input type="hidden" name="projectid" value = {{current_Project.id}} class="form-control">
+                <button type="submit" class="btn btn-light">Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

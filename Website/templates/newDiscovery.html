@@ -1,0 +1,31 @@
+{% extends "base.html" %} 
+{% block title %} New Discovery Note {% endblock %}
+
+{%block content %}
+<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+
+<div class="box">
+
+    <div class="newNoteHeader">
+        <h3>Create a new note...</h3>
+    </div>
+    <br>
+    <div>
+        <form method="POST">
+            <input type="text" name="discovery-name" id="discovery-name" placeholder="Type a title...">
+            <input type="hidden" name="projectId" id="projectId" value={{current_Project.id}}>
+            {{ ckeditor.create() }}
+            <br>
+            <button type="submit" class="btn btn-light">Post Note</button>
+        </form>
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#ckeditor' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+    </div>
+</div>
+
+{%endblock%}

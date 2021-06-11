@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% block title %} Discovery {% endblock %}
+
+{%block content %}
+
+<div class="box">
+    <div class="d-flex flex-row justify-content-around align-items-center flex-wrap to-do-header">
+        <div>
+            <h6>Search</h6>
+        </div>
+        <div>
+            <h3 class="discovery-header-name">Discovery Notes</h3>
+        </div>
+        <div>
+            <a href="/{{current_Project.id}}/discovery/new_note">
+                <button class="btn btn-light">Add New Note</button>
+            </a>            
+        </div>
+    </div>
+    
+
+    <div>
+        {%for discovery in discoveries%}
+        <div class="discovery-block">
+            <a href = "/{{current_Project.id}}/discovery/{{discovery.discoveryId}}" class="discovery-list">
+                <h3>{{discovery.discoveryName}}</h3>
+            </a>
+            <div class="discovery-excerpt"> {{discovery.discoveryNote|safe}}</div>
+        </div>     
+        {%endfor%}
+    </div>
+</div>
+{%endblock%}

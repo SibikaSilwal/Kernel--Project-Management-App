@@ -1,0 +1,232 @@
+body {
+  background-color: #f6f2ef;
+}
+.home-box {
+  max-width: 930px;
+  margin: auto;
+  padding: 20px;
+}
+.box {
+  padding: 20px;
+  max-width: 900px;
+  border-radius: 1px;
+  box-shadow: 0px -1px 10px rgba(0.1, 0.1, 0.1, 5%);
+  min-height: 600px;
+  margin: auto;
+  margin-top: 30px;
+  background-color: #fff;
+}
+/*navbar*/
+.navbar-nav a {
+  color: black;
+  font-weight: 500;
+}
+.navbar-collapse {
+  display: inline-block !important;
+  margin: auto;
+}
+.navbar-nav {
+  display: flex;
+  width: auto;
+  flex-direction: row;
+  margin: 0;
+  justify-content: center;
+}
+.nav-link {
+  margin-left: 5px;
+  margin-right: 20px;
+}
+img.nav-home,
+img.nav-task,
+img.nav-logout {
+  align-self: center;
+}
+/*Employee Initials*/
+.bg-color-0 {
+  background-color: blueviolet;
+}
+.bg-color-1 {
+  background-color: burlywood;
+}
+.bg-color-2 {
+  background-color: cadetblue;
+}
+.bg-color-3 {
+  background-color: crimson;
+}
+.bg-color-4 {
+  background-color: darkgreen;
+}
+/*Check-box*/
+.checkbox {
+  padding: 0.25em 0 0.25em 1.9em;
+  position: relative;
+  min-height: 1.4em;
+  display: block;
+}
+.checkbox a {
+  color: black;
+}
+/*Button Classes*/
+.btn-light {
+  border: 1px solid #c0c0c0;
+  border-radius: 20px;
+}
+/*HomePage*/
+.home-welcome-msg {
+  color: #877457;
+}
+.welcome-msg-sub {
+  color: #877457;
+}
+.break-inline {
+  width: 80%;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.project-card {
+  width: 32%;
+  height: 180px;
+  margin-bottom: 20px;
+}
+.project-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.project-description {
+  font-size: 15px;
+  color: #283c46;
+  overflow: hidden;
+  max-height: 50px;
+}
+.employee-avatar {
+  position: absolute;
+  bottom: 0.8em;
+}
+.home-initials {
+  padding: 5px;
+  font-weight: 500;
+  margin: 3px;
+  vertical-align: bottom;
+  float: left;
+}
+.card-body {
+  cursor: pointer;
+  overflow: hidden;
+}
+/*project page*/
+.project-tasks-list {
+  overflow: hidden;
+}
+.file-card,
+.task-card {
+  width: 47%;
+  height: 350px;
+  border-radius: 1px;
+  box-shadow: 0px -1px 10px rgba(0.1, 0.1, 0.1, 5%);
+  margin-bottom: 20px;
+}
+
+/*task page*/
+.task-header {
+  text-align: center;
+}
+.task-header-name {
+  display: inline-block;
+  width: auto;
+  padding-left: 10px;
+}
+.checkbox-lg {
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+.initials {
+  /*display: inline-block;*/
+  float: left;
+  padding: 8px;
+  font-weight: 500;
+}
+.single-comment-wrapper {
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #faf8f7;
+  margin-bottom: 10px;
+}
+.comment-content {
+  display: none;
+}
+.comment-content + p {
+  width: 85%;
+  padding: 6px;
+  margin-left: 40px;
+}
+.task-checkbox {
+  vertical-align: middle;
+  line-height: 0.5;
+  cursor: pointer;
+}
+.task-list {
+  display: inline-block;
+  width: 80%;
+}
+/*to do page*/
+.to-do-header {
+  border-bottom: 3px solid black;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+.task-list-name {
+  margin-bottom: 20px;
+}
+.task-list-header {
+  color: #d2691e;
+  text-decoration: underline;
+}
+/*Discovery List Page*/
+.discovery-block {
+  border-bottom: 1px solid #c0c0c0;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.discovery-list {
+  color: black;
+  text-decoration: none;
+}
+.discovery-list:hover {
+  text-decoration: none;
+  color: darkorange;
+}
+.dicovery-title {
+  margin-bottom: 2px;
+}
+.discovery-excerpt {
+  overflow: hidden;
+  max-height: 75px;
+  margin-left: 10px;
+}
+.discovery-excerpt p {
+  margin: 0;
+}
+#discovery-name {
+  border: 0;
+  font-weight: 600;
+  font-size: 30px;
+}
+.newNoteHeader {
+  padding: 20px;
+  text-align: center;
+  background-color: #faf8f7;
+  margin: -20px;
+}
+
+/*ck editor*/
+.ck.ck-editor__main > .ck-editor__editable {
+  min-height: 300px;
+}
+/*bootstrap popover*/
+.popover {
+  max-width: 600px;
+  width: 80%;
+}

@@ -1,0 +1,17 @@
+{% extends "base.html" %} 
+{% block title %} discovery.discoveryName {% endblock %}
+
+{%block content %}
+<div class="box">
+    <div class="discovery-header">
+        <h3 align="center">{{discovery.discoveryName}}</h3>
+        <p align="center">Added by {{addedBy.employeeName}}</p>
+    </div>
+
+    <div class="dicovery-note">
+        {{discovery.discoveryNote|safe}}
+    </div>
+    
+</div>
+
+{%endblock%}
